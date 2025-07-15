@@ -26,10 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MarkupExtensions\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="CustomControlsBasic\Labels\Base\LabelBase.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
