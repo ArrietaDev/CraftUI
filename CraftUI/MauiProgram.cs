@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using CraftUI.Presentation.Pages.Entry;
+using CraftUI_Components;
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Handlers;
 
 namespace CraftUI
 {
@@ -8,9 +12,9 @@ namespace CraftUI
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .AddBlogComponents()
-                .UseMauiCommunityToolkit()
                 .UseMauiApp<App>()
+                .AddBlogComponents() 
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -18,8 +22,9 @@ namespace CraftUI
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+            ApplyStyleCustomization();
 
             Routing.RegisterRoute(RouteConstants.EntryPage, typeof(EntryPage));
 
@@ -28,7 +33,30 @@ namespace CraftUI
 
         private static void ApplyStyleCustomization()
         {
-            // We will implement this method in the next section
+            EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, _) =>
+            {
+            #if __ANDROID__
+                // Remove the underline from the EditText
+                handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+            #endif
+            });
+
+            EntryHandler.Mapper.AppendToMapping("SetUpEntry", (handler, view) =>
+            {
+            #if ANDROID
+
+            #elif IOS || MACCATALYST
+            // Remove outline from the UITextField
+            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+            #elif WINDOWS
+
+            #endif
+            });
         }
+    }
+
+    public static class RouteConstants
+    {
+        public const string EntryPage = "EntryPage";
     }
 }

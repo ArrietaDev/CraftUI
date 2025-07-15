@@ -60,9 +60,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="12.1.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.90" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.7" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.90" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Presentation\Common\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\CraftUI_Components\CraftUI_Components.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Presentation\Pages\Entry\EntryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
